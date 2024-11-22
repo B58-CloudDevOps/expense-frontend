@@ -1,0 +1,114 @@
+name: CI-Frontend
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+jobs:
+  compile:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run a one-line script
+        run: hostname
+
+  static-code-analysis:
+    runs-on: self-hosted
+    needs: [compile]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+  security-checks-sast:
+    runs-on: self-hosted
+    needs: [compile]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+  security-checks-sca:
+    runs-on: self-hosted
+    needs: [compile]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+  unit-testing:
+    runs-on: self-hosted
+    needs: [security-checks-sca]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+  integration-testing:
+    runs-on: self-hosted
+    needs: [security-checks-sca]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run a one-line script
+        run: echo Hello, world!
+      
+  build-docker-image:
+    needs: [unit-testing,integration-testing]
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+  uploading-image:
+    needs: [build-docker-image]
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+  dev-deployment:
+    runs-on: self-hosted
+    needs: [uploading-image]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+  qa-deployment:
+    runs-on: self-hosted
+    needs: [dev-deployment]
+    environment: qa
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+  functional-testing:
+    runs-on: self-hosted
+    needs: [qa-deployment]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+  endtoend-testing:
+    needs: [qa-deployment]
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+  prod-deployment:
+    needs: [endtoend-testing, functional-testing]
+    runs-on: self-hosted
+    environment: prod
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+# Test Comment
