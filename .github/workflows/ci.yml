@@ -74,8 +74,8 @@ jobs:
     needs: [uploading-image]
     steps:
       - uses: actions/checkout@v4
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Authenticating to dev cluster
+        run: bash ./init.sh dev
 
   qa-deployment:
     runs-on: self-hosted
@@ -83,8 +83,8 @@ jobs:
     environment: qa
     steps:
       - uses: actions/checkout@v4
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Authenticating to qa cluster
+        run: bash ./init.sh qa
 
   functional-testing:
     runs-on: self-hosted
@@ -108,7 +108,7 @@ jobs:
     environment: prod
     steps:
       - uses: actions/checkout@v4
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Authenticating to prod cluster
+        run: bash ./init.sh prod
 
 # Test Comment
